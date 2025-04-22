@@ -18,7 +18,7 @@ public class CardPlacementSystem : MonoBehaviour
         CardPlacementSetUp(cardsInPlay);
     }
 
-    GameObject[,] CardPlacementSetUp(GameObject[,] cards)
+    void CardPlacementSetUp(GameObject[,] cards)
     {
         for (int i = 0; i < rows; i++)
         {
@@ -30,8 +30,6 @@ public class CardPlacementSystem : MonoBehaviour
                 cards[i,j] = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
             }
         }
-
-        return cards;
     }
 
 

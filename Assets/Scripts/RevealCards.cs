@@ -12,6 +12,15 @@ public class RevealCards : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Reveal();
+    }
+
+    void Reveal()
+    {
+        // Left Click
+        if (Input.GetMouseButtonDown(0))
+        {
+            _sr.color = Color.black ;
+        }
     }
 }
