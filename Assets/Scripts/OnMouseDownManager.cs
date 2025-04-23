@@ -4,8 +4,14 @@ public class OnMouseDownManager : MonoBehaviour
 {
     void OnMouseDown()
     {
-       SpriteRenderer _sr = gameObject.GetComponent<SpriteRenderer>();
-        _sr.color = Color.red;
+       string cardName = gameObject.GetComponent<CardStats>().cardType;
+
+       GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
+        gameManager.selectedCards.Add(cardName, gameObject);
+        print(cardName);
+
+    
 
     }
 }
