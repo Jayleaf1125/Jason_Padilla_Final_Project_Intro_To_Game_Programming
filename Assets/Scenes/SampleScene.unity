@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f36c60a86231846861f7f8fa8517a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 4
+  rows: 3
   columns: 2
   cardPrefab: {fileID: 3304712897827595247, guid: 86e566de8e6ba694aa4892dedc195e51, type: 3}
   spacing: 2

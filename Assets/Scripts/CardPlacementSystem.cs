@@ -62,6 +62,9 @@ public class CardPlacementSystem : MonoBehaviour
             chosenCardTypes.Add(choosenType);
             isPicking = false;
             card.GetComponent<CardStats>().SetType(choosenType);
+
+            // Debug Statement
+            card.name = choosenType;
         }
     }
 
@@ -71,6 +74,9 @@ public class CardPlacementSystem : MonoBehaviour
 
        chosenCardTypes.Remove(choosenType);
        card.GetComponent<CardStats>().SetType(choosenType);
+
+        // Debug Statement
+        card.name = choosenType;
     }
 
 
