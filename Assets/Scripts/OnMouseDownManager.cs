@@ -8,26 +8,30 @@ public class OnMouseDownManager : MonoBehaviour
     void OnMouseDown()
     {
        GameObject selectedcard = gameObject;
-       string selectedCardName = selectedcard.GetComponent<CardStats>().cardType;
+       CardStats selectedCardStats = selectedcard.GetComponent<CardStats>();
+       string selectedCardName = selectedCardStats.cardType;
 
        GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
        Dictionary<string, GameObject> selectedCardsList = gameManager.selectedCards;
 
-        if(selectedCardsList.Count == 0)
+        if (selectedCardsList.Count == 0 && !selectedCardStats.isClicked)
         {
             selectedCardsList.Add(selectedCardName, selectedcard);
+            selectedCardStats.isClicked = true;
         } else
         {
-            if(selectedCardsList.ContainsKey(selectedCardName))
+            if(!selectedCardStats.isClicked && selectedCardsList.ContainsKey(selectedCardName))
             {
-                Debug.Log("You win");
                 Destroy(selectedCardsList[selectedCardName]);
                 Destroy(selectedcard);
                 selectedCardsList.Clear();
             } else
             {
-                Debug.Log("You Lose");
+                selectedCardsList.ElementAt(0).Value.GetComponent<CardStats>().isClicked = false;   
+                selectedCardStats.isClicked = false;
+
                 selectedCardsList.Clear();
+
             }
 
         }

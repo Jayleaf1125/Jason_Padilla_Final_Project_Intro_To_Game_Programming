@@ -3,6 +3,7 @@ using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardPlacementSystem : MonoBehaviour
 {
@@ -80,6 +81,18 @@ public class CardPlacementSystem : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                GameObject card = cardsInPlay[i, j];
+                if (card != null) return;
+            }
+        }
 
+        SceneManager.LoadSceneAsync(2);
+    }
 
 }
