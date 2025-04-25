@@ -7,8 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class CardPlacementSystem : MonoBehaviour
 {
-    string[] cardTypes = { "Apple", "Orange", "Grape", "Watermelon", "Coconut" };
+    public string[] cardTypes = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    public Sprite[] spriteTypes;
+
+    public Dictionary<string, Sprite> cardDict = new Dictionary<string, Sprite>();
+
     List<string> chosenCardTypes = new List<string>();
+    List<Sprite> chosenSpriteTypes = new List<Sprite>();
 
     public int rows;
     public int columns;
@@ -17,10 +22,22 @@ public class CardPlacementSystem : MonoBehaviour
     public GameObject[,] cardsInPlay;
     public float spacing;
 
+    
 
+    void SettingUpCardDict()
+    {
+        for (int i = 0; i < cardTypes.Length; i++)
+        {
+            string cardName = cardTypes[i];
+            Sprite cardSprite = spriteTypes[i];
+
+            cardDict[cardName] = cardSprite;
+        }
+    }
 
     void Start()
     {
+        SettingUpCardDict();
         cardsInPlay = new GameObject[rows, columns];
         CardPlacementSetUp(cardsInPlay);
     }
@@ -55,14 +72,18 @@ public class CardPlacementSystem : MonoBehaviour
     void RandomSelectedUnquieCardType(GameObject card)
     {
         bool isPicking = true;
+
         while (isPicking)
         {
             string choosenType = cardTypes[Random.Range(0, cardTypes.Length)];
             if (chosenCardTypes.Contains(choosenType)) continue;
 
             chosenCardTypes.Add(choosenType);
+            chosenSpriteTypes.Add(cardDict[choosenType]);
+
             isPicking = false;
             card.GetComponent<CardStats>().SetType(choosenType);
+            card.GetComponent<CardStats>().SetSprite(cardDict[choosenType]);
 
             // Debug Statement
             card.name = choosenType;
@@ -74,7 +95,10 @@ public class CardPlacementSystem : MonoBehaviour
        string choosenType = chosenCardTypes.ElementAt(Random.Range(0, chosenCardTypes.Count));
 
        chosenCardTypes.Remove(choosenType);
+       chosenSpriteTypes.Remove(cardDict[choosenType]);
+
        card.GetComponent<CardStats>().SetType(choosenType);
+       card.GetComponent<CardStats>().SetSprite(cardDict[choosenType]);
 
         // Debug Statement
         card.name = choosenType;

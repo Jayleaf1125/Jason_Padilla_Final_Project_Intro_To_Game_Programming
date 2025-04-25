@@ -284,10 +284,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f36c60a86231846861f7f8fa8517a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardTypes:
+  - A
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - J
+  - Q
+  - K
+  spriteTypes:
+  - {fileID: 21300000, guid: 3b3b95731fda7c94fab007facc6dccae, type: 2}
+  - {fileID: 21300000, guid: 808a7e8906352c44db9eaa8cd4af11f3, type: 2}
+  - {fileID: 21300000, guid: 0c0a0769b35862e4d9b82d402ddaae93, type: 2}
+  - {fileID: 21300000, guid: 0aa7b395fc838c2418a35d7c05980c80, type: 2}
+  - {fileID: 21300000, guid: 397d03bc91641da40971348f9be411cb, type: 2}
+  - {fileID: 21300000, guid: 1e525a6fcd09d3f4d927d50d6274e578, type: 2}
+  - {fileID: 21300000, guid: 4ff174e907cc22243b20bb66abb57bb4, type: 2}
+  - {fileID: 21300000, guid: b38262242ecdbd34e80d5ab0b4a35620, type: 2}
+  - {fileID: 21300000, guid: 9c31b1e7b4d4ccc498ed5b70f9a24338, type: 2}
+  - {fileID: 21300000, guid: ea7a93805f5be7e44a338ad5b1a8ff85, type: 2}
+  - {fileID: 21300000, guid: 4dac618d34491644b9cc41cf6357bcba, type: 2}
+  - {fileID: 21300000, guid: 417eb4838b21a0d4c9b06d92dbdd0726, type: 2}
+  - {fileID: 21300000, guid: 8bc552f5e0dfa454e85ad5ac1b22316b, type: 2}
   rows: 3
   columns: 2
   cardPrefab: {fileID: 3304712897827595247, guid: 86e566de8e6ba694aa4892dedc195e51, type: 3}
-  spacing: 2
+  spacing: 1
 --- !u!4 &278239886
 Transform:
   m_ObjectHideFlags: 0
@@ -361,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownTimer: {fileID: 45958121}
-  intialTime: 11
+  intialTime: 100
   remainingTime: 0
 --- !u!1 &519420028
 GameObject:
