@@ -25,4 +25,9 @@ public class CardStats : MonoBehaviour
     {
         sr.sprite = sprite;
     }
+
+    public void SetColor(Color color)
+    {
+        sr.color = color;
+    }
 }

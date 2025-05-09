@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +15,8 @@ public class CardPlacementSystem : MonoBehaviour
 
     public int rows;
     public int columns;
+    public int totalNumOfCards;
+
     public GameObject cardPrefab;
 
     public GameObject[,] cardsInPlay;
@@ -39,6 +39,7 @@ public class CardPlacementSystem : MonoBehaviour
     {
         SettingUpCardDict();
         cardsInPlay = new GameObject[rows, columns];
+        totalNumOfCards = rows * columns;
         CardPlacementSetUp(cardsInPlay);
     }
 
@@ -56,6 +57,7 @@ public class CardPlacementSystem : MonoBehaviour
 
                 cards[i,j] = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
 
+
                 if (selectedUnquieCards != unquieNumOfCards)
                 {
                     RandomSelectedUnquieCardType(cards[i, j]);
@@ -72,6 +74,7 @@ public class CardPlacementSystem : MonoBehaviour
     void RandomSelectedUnquieCardType(GameObject card)
     {
         bool isPicking = true;
+        CardStats selectedCardStats = card.GetComponent<CardStats>();
 
         while (isPicking)
         {
@@ -82,8 +85,9 @@ public class CardPlacementSystem : MonoBehaviour
             chosenSpriteTypes.Add(cardDict[choosenType]);
 
             isPicking = false;
-            card.GetComponent<CardStats>().SetType(choosenType);
-            card.GetComponent<CardStats>().SetSprite(cardDict[choosenType]);
+            selectedCardStats.SetType(choosenType);
+            selectedCardStats.SetSprite(cardDict[choosenType]);
+            selectedCardStats.SetColor(Color.black);
 
             // Debug Statement
             card.name = choosenType;
@@ -93,30 +97,22 @@ public class CardPlacementSystem : MonoBehaviour
     void RandomSelectedDuplicateCardType(GameObject card)
     {
        string choosenType = chosenCardTypes.ElementAt(Random.Range(0, chosenCardTypes.Count));
+       CardStats selectedCardStats = card.GetComponent<CardStats>();
 
        chosenCardTypes.Remove(choosenType);
        chosenSpriteTypes.Remove(cardDict[choosenType]);
 
-       card.GetComponent<CardStats>().SetType(choosenType);
-       card.GetComponent<CardStats>().SetSprite(cardDict[choosenType]);
+       selectedCardStats.SetType(choosenType);
+       selectedCardStats.SetSprite(cardDict[choosenType]);
+       selectedCardStats.SetColor(Color.black);
 
         // Debug Statement
-        card.name = choosenType;
+       card.name = choosenType;
     }
-
 
     private void Update()
     {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                GameObject card = cardsInPlay[i, j];
-                if (card != null) return;
-            }
-        }
-
-        SceneManager.LoadSceneAsync(2);
+        if (totalNumOfCards == 0) SceneManager.LoadSceneAsync(2);
     }
 
 }
