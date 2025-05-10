@@ -7,15 +7,15 @@ public class OnMouseDownManager : MonoBehaviour
 {
     void OnMouseDown()
     {
-       GameObject selectedcard = gameObject;
-       CardStats selectedCardStats = selectedcard.GetComponent<CardStats>();
-      string selectedCardName = selectedCardStats.cardType;
+        GameObject selectedcard = gameObject;
+        CardStats selectedCardStats = selectedcard.GetComponent<CardStats>();
+        string selectedCardName = selectedCardStats.cardType;
         selectedCardStats.SetColor(Color.white);
 
         GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-       CardPlacementSystem cps = GameObject.Find("Card Placement System").GetComponent<CardPlacementSystem>();
+        CardPlacementSystem cps = GameObject.Find("Card Placement System").GetComponent<CardPlacementSystem>();
 
-       Dictionary<string, GameObject> selectedCardsList = gameManager.selectedCards;
+        Dictionary<string, GameObject> selectedCardsList = gameManager.selectedCards;
 
         if (selectedCardsList.Count == 0 && !selectedCardStats.isClicked)
         {
@@ -23,7 +23,7 @@ public class OnMouseDownManager : MonoBehaviour
             selectedCardStats.isClicked = true;
         } else
         {
-            if(!selectedCardStats.isClicked && selectedCardsList.ContainsKey(selectedCardName))
+            if (!selectedCardStats.isClicked && selectedCardsList.ContainsKey(selectedCardName))
             {
                 StartCoroutine(ResetSelectedCardsOffWin(selectedCardsList, selectedcard, selectedCardName, cps));
             } else

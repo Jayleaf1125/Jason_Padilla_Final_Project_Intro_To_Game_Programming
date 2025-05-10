@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CardStats : MonoBehaviour
 {
+    public float id;
     public string cardType;
     public bool isClicked = false;
     public SpriteRenderer sr;

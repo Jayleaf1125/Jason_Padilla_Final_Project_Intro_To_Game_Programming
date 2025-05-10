@@ -19,7 +19,6 @@ public class CardPlacementSystem : MonoBehaviour
 
     public GameObject cardPrefab;
 
-    public GameObject[,] cardsInPlay;
     public float spacing;
 
     
@@ -38,15 +37,16 @@ public class CardPlacementSystem : MonoBehaviour
     void Start()
     {
         SettingUpCardDict();
-        cardsInPlay = new GameObject[rows, columns];
+        // cardsInPlay = new GameObject[rows, columns];
         totalNumOfCards = rows * columns;
-        CardPlacementSetUp(cardsInPlay);
+        CardPlacementSetUp();
     }
 
-    void CardPlacementSetUp(GameObject[,] cards)
+    void CardPlacementSetUp()
     {
-        int unquieNumOfCards = cardsInPlay.Length / 2;
+        int unquieNumOfCards = totalNumOfCards / 2;
         int selectedUnquieCards = 0;
+        float idCounts = 0;
 
         for (int i = 0; i < rows; i++)
         {
@@ -55,26 +55,27 @@ public class CardPlacementSystem : MonoBehaviour
                 Vector3 rightSpacing = Vector3.right * (i * spacing);
                 Vector3 downSpacing = Vector3.down * (j * spacing);
 
-                cards[i,j] = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
+                GameObject card = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
+                CardStats selectedCardStats = card.GetComponent<CardStats>();
 
+                selectedCardStats.id =  ++idCounts;
 
                 if (selectedUnquieCards != unquieNumOfCards)
                 {
-                    RandomSelectedUnquieCardType(cards[i, j]);
+                    RandomSelectedUnquieCardType(selectedCardStats);
                     selectedUnquieCards++;
                 } else
                 {
-                    RandomSelectedDuplicateCardType(cards[i, j]);
+                    RandomSelectedDuplicateCardType(selectedCardStats);
                 }
 
             }
         }
     }
 
-    void RandomSelectedUnquieCardType(GameObject card)
+    void RandomSelectedUnquieCardType(CardStats cardStats)
     {
         bool isPicking = true;
-        CardStats selectedCardStats = card.GetComponent<CardStats>();
 
         while (isPicking)
         {
@@ -85,29 +86,22 @@ public class CardPlacementSystem : MonoBehaviour
             chosenSpriteTypes.Add(cardDict[choosenType]);
 
             isPicking = false;
-            selectedCardStats.SetType(choosenType);
-            selectedCardStats.SetSprite(cardDict[choosenType]);
-            selectedCardStats.SetColor(Color.black);
-
-            // Debug Statement
-            card.name = choosenType;
+            cardStats.SetType(choosenType);
+            cardStats.SetSprite(cardDict[choosenType]);
+            cardStats.SetColor(Color.black);
         }
     }
 
-    void RandomSelectedDuplicateCardType(GameObject card)
+    void RandomSelectedDuplicateCardType(CardStats cardStats)
     {
        string choosenType = chosenCardTypes.ElementAt(Random.Range(0, chosenCardTypes.Count));
-       CardStats selectedCardStats = card.GetComponent<CardStats>();
 
        chosenCardTypes.Remove(choosenType);
        chosenSpriteTypes.Remove(cardDict[choosenType]);
 
-       selectedCardStats.SetType(choosenType);
-       selectedCardStats.SetSprite(cardDict[choosenType]);
-       selectedCardStats.SetColor(Color.black);
-
-        // Debug Statement
-       card.name = choosenType;
+       cardStats.SetType(choosenType);
+       cardStats.SetSprite(cardDict[choosenType]);
+       cardStats.SetColor(Color.black);
     }
 
     private void Update()
