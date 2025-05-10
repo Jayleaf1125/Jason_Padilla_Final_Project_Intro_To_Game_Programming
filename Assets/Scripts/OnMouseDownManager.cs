@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class OnMouseDownManager : MonoBehaviour
 {
+    GameManager gameManager;
+    CardPlacementSystem cps;
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        cps = GameObject.Find("Card Placement System").GetComponent<CardPlacementSystem>();
+        audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
+    }
     void OnMouseDown()
     {
         GameObject selectedcard = gameObject;
+        audioManager.PlayCardSelect();
         CardStats selectedCardStats = selectedcard.GetComponent<CardStats>();
         string selectedCardName = selectedCardStats.cardType;
         selectedCardStats.SetColor(Color.white);
-
-        GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        CardPlacementSystem cps = GameObject.Find("Card Placement System").GetComponent<CardPlacementSystem>();
 
         Dictionary<string, GameObject> selectedCardsList = gameManager.selectedCards;
 
@@ -37,6 +45,8 @@ public class OnMouseDownManager : MonoBehaviour
     IEnumerator ResetSelectedCardsOffLost(Dictionary<string, GameObject> selectedCardsList, CardStats selectedCardStats)
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        audioManager.PlayCardDecline();
 
         yield return new WaitForSeconds(1.5f);
 
@@ -49,10 +59,12 @@ public class OnMouseDownManager : MonoBehaviour
         selectedCardsList.Clear();
 
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     IEnumerator ResetSelectedCardsOffWin(Dictionary<string, GameObject> selectedCardsList, GameObject selectedcard, string selectedCardName, CardPlacementSystem cps)
     {
+        audioManager.PlayCardAccept();
         yield return new WaitForSeconds(1.5f);
 
         Destroy(selectedCardsList[selectedCardName]);

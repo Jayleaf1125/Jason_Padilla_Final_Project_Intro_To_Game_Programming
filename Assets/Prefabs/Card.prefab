@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85db4f146b7780048a156cb1bf210105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   cardType: 
   isClicked: 0
   sr: {fileID: 0}
