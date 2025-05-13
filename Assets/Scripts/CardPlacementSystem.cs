@@ -21,6 +21,8 @@ public class CardPlacementSystem : MonoBehaviour
 
     public float spacing;
 
+    public int nextLevel;
+
     
 
     void SettingUpCardDict()
@@ -56,6 +58,7 @@ public class CardPlacementSystem : MonoBehaviour
                 Vector3 downSpacing = Vector3.down * (j * spacing);
 
                 GameObject card = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
+                card.transform.SetParent(this.transform, false); ;
                 CardStats selectedCardStats = card.GetComponent<CardStats>();
 
                 selectedCardStats.id =  ++idCounts;
@@ -106,7 +109,7 @@ public class CardPlacementSystem : MonoBehaviour
 
     private void Update()
     {
-        if (totalNumOfCards == 0) SceneManager.LoadSceneAsync(2);
+        if (totalNumOfCards == 0) SceneManager.LoadSceneAsync(nextLevel);
     }
 
 }

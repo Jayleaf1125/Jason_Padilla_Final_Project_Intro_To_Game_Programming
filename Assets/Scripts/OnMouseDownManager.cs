@@ -64,6 +64,8 @@ public class OnMouseDownManager : MonoBehaviour
 
     IEnumerator ResetSelectedCardsOffWin(Dictionary<string, GameObject> selectedCardsList, GameObject selectedcard, string selectedCardName, CardPlacementSystem cps)
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         audioManager.PlayCardAccept();
         yield return new WaitForSeconds(1.5f);
 
@@ -71,5 +73,7 @@ public class OnMouseDownManager : MonoBehaviour
         Destroy(selectedcard);
         cps.totalNumOfCards -= 2;
         selectedCardsList.Clear();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
