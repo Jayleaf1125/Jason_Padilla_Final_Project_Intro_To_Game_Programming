@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 74, y: 92}
+  m_AnchoredPosition: {x: 74, y: 145}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &45958121
@@ -313,11 +313,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 417eb4838b21a0d4c9b06d92dbdd0726, type: 2}
   - {fileID: 21300000, guid: 8bc552f5e0dfa454e85ad5ac1b22316b, type: 2}
   rows: 4
-  columns: 2
+  columns: 4
   totalNumOfCards: 0
   cardPrefab: {fileID: 3304712897827595247, guid: 86e566de8e6ba694aa4892dedc195e51, type: 3}
   spacing: 2.5
-  nextLevel: 4
+  nextLevel: 7
 --- !u!4 &278239886
 Transform:
   m_ObjectHideFlags: 0
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 278239884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.68, y: -0.95, z: 0}
+  m_LocalPosition: {x: -3, y: 0.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -391,8 +391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownTimer: {fileID: 45958121}
-  intialTime: 5000
+  intialTime: 46
   remainingTime: 0
+  loseLevel: 8
+  instantLose: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

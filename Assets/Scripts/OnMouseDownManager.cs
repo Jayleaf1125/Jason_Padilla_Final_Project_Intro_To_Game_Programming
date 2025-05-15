@@ -48,7 +48,7 @@ public class OnMouseDownManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         audioManager.PlayCardDecline();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         selectedCardsList.ElementAt(0).Value.GetComponent<CardStats>().isClicked = false;
         selectedCardStats.isClicked = false;
@@ -67,7 +67,7 @@ public class OnMouseDownManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         audioManager.PlayCardAccept();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.5f);
 
         Destroy(selectedCardsList[selectedCardName]);
         Destroy(selectedcard);

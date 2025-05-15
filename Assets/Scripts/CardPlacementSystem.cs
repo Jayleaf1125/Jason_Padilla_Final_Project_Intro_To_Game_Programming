@@ -112,4 +112,9 @@ public class CardPlacementSystem : MonoBehaviour
         if (totalNumOfCards == 0) SceneManager.LoadSceneAsync(nextLevel);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(transform.position, new Vector3(1,1,1));
+    }
 }
