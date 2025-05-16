@@ -33,7 +33,7 @@ public class OnMouseDownManager : MonoBehaviour
         {
             if (!selectedCardStats.isClicked && selectedCardsList.ContainsKey(selectedCardName))
             {
-                StartCoroutine(ResetSelectedCardsOffWin(selectedCardsList, selectedcard, selectedCardName, cps));
+                StartCoroutine(ResetSelectedCardsOffWin(selectedCardsList, selectedcard, selectedCardName, cps, selectedCardStats));
             } else
             {
                 StartCoroutine(ResetSelectedCardsOffLost(selectedCardsList, selectedCardStats));
@@ -62,11 +62,12 @@ public class OnMouseDownManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    IEnumerator ResetSelectedCardsOffWin(Dictionary<string, GameObject> selectedCardsList, GameObject selectedcard, string selectedCardName, CardPlacementSystem cps)
+    IEnumerator ResetSelectedCardsOffWin(Dictionary<string, GameObject> selectedCardsList, GameObject selectedcard, string selectedCardName, CardPlacementSystem cps, CardStats selectedCardStats)
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         audioManager.PlayCardAccept();
+        selectedCardStats.PlayParticle();
         yield return new WaitForSeconds(.5f);
 
         Destroy(selectedCardsList[selectedCardName]);

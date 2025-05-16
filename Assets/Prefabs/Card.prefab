@@ -132,7 +132,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -164,3 +164,4 @@ MonoBehaviour:
   cardType: 
   isClicked: 0
   sr: {fileID: 0}
+  starParticle: {fileID: 7984491602230256245, guid: a9d285c5093ac5c488a0d5b6403922d0, type: 3}
