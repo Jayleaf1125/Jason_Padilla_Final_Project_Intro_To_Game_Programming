@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4209664, y: 0.4575994, z: 0}
-  m_LocalScale: {x: 0.75, y: 1.25, z: 1}
+  m_LocalScale: {x: 3, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -146,7 +146,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.6}
   m_EdgeRadius: 0
 --- !u!114 &6145052163444736631
 MonoBehaviour:
@@ -160,5 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85db4f146b7780048a156cb1bf210105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   cardType: 
   isClicked: 0
+  sr: {fileID: 0}
+  starParticle: {fileID: 7984491602230256245, guid: a9d285c5093ac5c488a0d5b6403922d0, type: 3}

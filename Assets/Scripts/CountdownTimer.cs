@@ -8,6 +8,9 @@ public class CountdownTimer : MonoBehaviour
     public TextMeshProUGUI countdownTimer;
     public float intialTime = 0f;
     public float remainingTime;
+    public int loseLevel;
+
+    public bool instantLose = false;
 
     private void Awake()
     {
@@ -24,7 +27,12 @@ public class CountdownTimer : MonoBehaviour
         {
             remainingTime = 0;
             countdownTimer.color = Color.red;
-            SceneManager.LoadSceneAsync(1);
+            SceneManager.LoadSceneAsync(loseLevel);
+        }
+
+        if (instantLose && Input.GetKeyDown(KeyCode.L))
+        {
+            SceneManager.LoadSceneAsync(loseLevel);
         }
 
 

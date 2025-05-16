@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,28 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class CardPlacementSystem : MonoBehaviour
 {
-    string[] cardTypes = { "Apple", "Orange", "Grape", "Watermelon", "Coconut" };
+    public string[] cardTypes = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    public Sprite[] spriteTypes;
+
+    public Dictionary<string, Sprite> cardDict = new Dictionary<string, Sprite>();
+
     List<string> chosenCardTypes = new List<string>();
+    List<Sprite> chosenSpriteTypes = new List<Sprite>();
 
     public int rows;
     public int columns;
+    public int totalNumOfCards;
+
     public GameObject cardPrefab;
 
-    public GameObject[,] cardsInPlay;
     public float spacing;
 
+    public int nextLevel;
 
+    
+
+    void SettingUpCardDict()
+    {
+        for (int i = 0; i < cardTypes.Length; i++)
+        {
+            string cardName = cardTypes[i];
+            Sprite cardSprite = spriteTypes[i];
+
+            cardDict[cardName] = cardSprite;
+        }
+    }
 
     void Start()
     {
-        cardsInPlay = new GameObject[rows, columns];
-        CardPlacementSetUp(cardsInPlay);
+        SettingUpCardDict();
+        // cardsInPlay = new GameObject[rows, columns];
+        totalNumOfCards = rows * columns;
+        CardPlacementSetUp();
     }
 
-    void CardPlacementSetUp(GameObject[,] cards)
+    void CardPlacementSetUp()
     {
-        int unquieNumOfCards = cardsInPlay.Length / 2;
+        int unquieNumOfCards = totalNumOfCards / 2;
         int selectedUnquieCards = 0;
+        float idCounts = 0;
 
         for (int i = 0; i < rows; i++)
         {
@@ -37,62 +57,64 @@ public class CardPlacementSystem : MonoBehaviour
                 Vector3 rightSpacing = Vector3.right * (i * spacing);
                 Vector3 downSpacing = Vector3.down * (j * spacing);
 
-                cards[i,j] = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
+                GameObject card = Instantiate(cardPrefab, transform.position + rightSpacing + downSpacing, Quaternion.identity);
+                card.transform.SetParent(this.transform, false); ;
+                CardStats selectedCardStats = card.GetComponent<CardStats>();
+
+                selectedCardStats.id =  ++idCounts;
 
                 if (selectedUnquieCards != unquieNumOfCards)
                 {
-                    RandomSelectedUnquieCardType(cards[i, j]);
+                    RandomSelectedUnquieCardType(selectedCardStats);
                     selectedUnquieCards++;
                 } else
                 {
-                    RandomSelectedDuplicateCardType(cards[i, j]);
+                    RandomSelectedDuplicateCardType(selectedCardStats);
                 }
 
             }
         }
     }
 
-    void RandomSelectedUnquieCardType(GameObject card)
+    void RandomSelectedUnquieCardType(CardStats cardStats)
     {
         bool isPicking = true;
+
         while (isPicking)
         {
             string choosenType = cardTypes[Random.Range(0, cardTypes.Length)];
             if (chosenCardTypes.Contains(choosenType)) continue;
 
             chosenCardTypes.Add(choosenType);
-            isPicking = false;
-            card.GetComponent<CardStats>().SetType(choosenType);
+            chosenSpriteTypes.Add(cardDict[choosenType]);
 
-            // Debug Statement
-            card.name = choosenType;
+            isPicking = false;
+            cardStats.SetType(choosenType);
+            cardStats.SetSprite(cardDict[choosenType]);
+            cardStats.SetColor(Color.black);
         }
     }
 
-    void RandomSelectedDuplicateCardType(GameObject card)
+    void RandomSelectedDuplicateCardType(CardStats cardStats)
     {
        string choosenType = chosenCardTypes.ElementAt(Random.Range(0, chosenCardTypes.Count));
 
        chosenCardTypes.Remove(choosenType);
-       card.GetComponent<CardStats>().SetType(choosenType);
+       chosenSpriteTypes.Remove(cardDict[choosenType]);
 
-        // Debug Statement
-        card.name = choosenType;
+       cardStats.SetType(choosenType);
+       cardStats.SetSprite(cardDict[choosenType]);
+       cardStats.SetColor(Color.black);
     }
-
 
     private void Update()
     {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                GameObject card = cardsInPlay[i, j];
-                if (card != null) return;
-            }
-        }
-
-        SceneManager.LoadSceneAsync(2);
+        if (totalNumOfCards == 0) SceneManager.LoadSceneAsync(nextLevel);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(transform.position, new Vector3(1,1,1));
+    }
 }
