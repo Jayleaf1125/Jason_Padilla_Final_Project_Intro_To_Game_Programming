@@ -1,0 +1,7 @@
+Coding Notes:
+- I see why your card selection algorithm was slow, you are using a random looping algorithm. You can replace it with the selection and remove you have in the RandomSelectedDuplicateCardType() function. But also include object pooling by just creating the card objects in the scene then position them in the algorithm.
+
+------------------------------------
+Design Notes:
+- its clean, well done
+- The only feedback I can give is, the background could be something like a table or a matte material similar to a poker table and positioning the timer better
